@@ -98,5 +98,8 @@
     <ClInclude Include="SqList.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="LinkList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
