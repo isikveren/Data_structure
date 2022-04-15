@@ -93,12 +93,18 @@
     <ClCompile Include="2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SqList.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="LinkList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SeqStack.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

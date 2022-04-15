@@ -3,85 +3,72 @@
 #define LINKLIST
 
 #include<iostream>  //单链表
-//#include<cstdio>
-//#define N 10;
-//typedef int ElemType;
 using namespace std;
 
-class Node
+template<class DateType>
+struct Node
 {
-public:
-	Node();
-	Node(int n);
-	~Node();
-	bool GetNode(int i, int* e);
-	bool GetData(int* i, int e);
-	void ShowList();
-	bool ClearList();
-	void InsertList(int e);
-
-private:
-	Node* next;
-	int data;
-
+	Node<DateType>* next;
+	DateType data;
 };
 
-Node::Node()
+template<class DateType>
+class LinkList
 {
-	this->next = NULL;
+public:
+	LinkList();
+	LinkList(DateType* a, int n);
+	~LinkList();
+	void ShowList();
+	void Delete(int i);
+	bool InsertNode(int i, DateType x);
+	bool SearchNode(int i);
+
+private:
+	Node<DateType>* first;
+	int length;
+};
+
+template<class DateType>
+LinkList<DateType>::LinkList()
+{
+	first = new Node<DateType>;
+	first->next = NULL;
 }
-Node::Node(int n) {
-	cout << "建立一个有" << n << "个结点的单链表：" << endl;
-	this->next = NULL;
-	for (int i = 1; i <= n; i++) {
-		int num;
-		Node* p = new Node();
-		cout << "请输入第" << i << "个结点的值：" << endl;
-		cin >> num;
-		p->data = num;
-		p->next = this->next;
-		this->next = p;
+
+template<class DateType>
+LinkList<DateType>::LinkList(DateType* a, int n) //尾插法
+{
+	first = new Node<DateType>;
+	Node<DateType>* r, * s;
+	r = first;
+	for (int i = 0; i < n; i++) {
+		s = new Node<DateType>;
+		s->data = a[i];
+		r->next = s;
+		r = s;
+	}
+	r->next = NULL;
+	length = n;
+}
+
+
+template<class DateType>
+LinkList<DateType>::~LinkList()
+{
+	Node<DateType>* q = NULL;
+	while (first) {
+		q = first;
+		first = first->next;
+		delete q;
 	}
 }
 
-Node::~Node()
+template<class DateType>
+void LinkList<DateType>::ShowList()  //输出单链表
 {
-
-}
-
-
-
-bool Node::GetNode(int i, int* e)      //找到链表第i个节点，数据存放在*e(头节点不存放数据)
-{
-
-	Node* p = this->next;
-	int j = 1;
-	while (p && j < i) {              //5 4 3 2 1 
-		p = p->next;
-		j++;
-	}
-	if (!p || j > i) return 0;               //指针为空 或者
-	*e = p->data;
-	return 1;
-}
-
-bool Node::GetData(int* i, int e)      //找到链表值为e的节点
-{
-	Node* p = this->next;
-	int j;
-	for (j = 1; p && p->data != e; j++)
-	{
-		p = p->next;
-	}
-	*i = j;
-	if (!p)  return 0;
-	else    return 1;
-}
-
-
-void Node::ShowList()  //输出单链表
-{
-	Node* p = this->next;
+	cout << "输出单链表" << endl;
+	Node<DateType>* p = first->next;
 	while (p) {
 		cout << p->data << "->";
 		p = p->next;
@@ -89,23 +76,55 @@ void Node::ShowList()  //输出单链表
 	cout << "NULL" << endl;
 }
 
-bool Node::ClearList() {   //清空链表
+template<class DateType>
 
-	Node* p, * q;
-	p = this->next;
-	while (p) {
-		q = p->next;
-		delete p;
-		p = q;
+void LinkList<DateType>::Delete(int i)  //删除第i个结点
+{
+	
+	Node<DateType>* p = first, * q = NULL;
+	int count = 0;
+	while (p && count < i - 1) {
+		p = p->next;
+		count++;
 	}
-	this->next = NULL;
+	if (p != NULL || p->next != NULL) {
+		q = p->next;
+		p->next = q->next;
+		delete q;
+		length--;
+		cout << "删除第" << i << "个结点" << endl;
+	}
+}
+
+template<class DateType>
+bool LinkList<DateType>::InsertNode(int i, DateType x) //在第i个结点后插入结点
+{
+	if (i > length)	return 0;
+	Node<DateType>* p = first->next, * q = new Node<DateType>;
+	q->data = x;
+	int count = 1;
+	while (p && count < i) {
+		p = p->next;
+		count++;
+	}
+	q->next = p->next;
+	p->next = q;
+	length++;
+	cout << "在第" << i << "个结点后插入值为" << x << "的结点" << endl;
 	return 1;
 }
 
-void Node::InsertList(int e) {
-	Node* p = new Node();
-	p->data = e;
-	p->next = this->next;
-	this->next = p;
+template<class DateType>
+bool LinkList<DateType>::SearchNode(int i)   //查找第i个结点
+{
+	if (i > length)	return 0;
+	Node<DateType>* p = first->next;
+	int count = 1;
+	while (p && count < i) {
+		p = p->next;
+		count++;
+	}
+	cout << "查找结点:第" << i << "个结点的值为" << p->data << endl;
+	return 1;
 }
 #endif

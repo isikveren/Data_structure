@@ -1,27 +1,17 @@
 #include "LinkList.h"
 
 int main() {
-	Node* LinkList = new Node(5);            //给节点分配空间
-	LinkList->ShowList();
-	int count1,count2,n,m;
-	cout << "按位次查找结点：请问需要查找第几个结点？" << endl;
-	cin >> n;
-	if (LinkList->GetNode(n, &count1)) {
-		cout << "第"<<n<<"个结点的数值为：" << count1 << endl;
-	}
-	else {
-		cout << "不存在第"<<n<<"个结点" << endl;
-	}
-	cout << "按值查找结点：请问需要查找数值为多少的结点？" << endl;
-	cin >> m;
-	if (LinkList->GetData(&count2, m)) {
-		cout << "数值为" << m << "的结点是第" << count2 <<"个。" << endl;
-	}
+	int a[] = { 1,2,3,4,5,6,7,8,9 };
+	LinkList<int> l(a,9);            //给节点分配空间
+	l.ShowList();
 
+	l.Delete(3);
+	l.ShowList();
 
-	LinkList->InsertList(3);
-	LinkList->ShowList();
-	LinkList->ClearList();
+	l.InsertNode(8, 10);
+	l.ShowList();
+
+	l.SearchNode(3);
 	system("pause");
 	return 0;
 }

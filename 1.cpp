@@ -15,7 +15,7 @@ int main()
 	l->ListDelete(4, 10);
 	l->PrintList();
 
-
+	delete l;
 	system("pause");
 	return 0;
 }
