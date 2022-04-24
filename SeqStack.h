@@ -19,7 +19,7 @@ public:
 
 	void Push(DataType x);
 	bool Pop(DataType& x);
-	bool getTop(DataType* x);
+	bool getTop(DataType& x);
 	bool IsEmpty() const { return top == -1; };
 	bool IsFull() const { return top == maxSize - 1; }
 };
@@ -37,7 +37,7 @@ SeqStack<DataType>::SeqStack(int sz)
 {
 	this->top = -1;
 	this->maxSize = sz;
-	this->elements = new DataType(this->maxSize);
+	this->elements = new DataType[this->maxSize];
 	if (this->elements == NULL) {
 		cerr << "存储分配错误！" << endl;
 		exit(1);
@@ -51,6 +51,7 @@ void SeqStack<DataType>::Push(DataType x)
 		this->overflowProcess();
 	}
 	else {
+		cout << "入栈操作：将" << x << "入栈" << endl;
 		this->elements[++(this->top)] = x;
 	}
 }
@@ -63,6 +64,7 @@ bool SeqStack<DataType>::Pop(DataType& x)
 		return false;
 	}
 	else {
+		cout << "出栈"<<endl;
 		x = this->elements[(this->top)--];
 		return true;
 	}
@@ -70,13 +72,13 @@ bool SeqStack<DataType>::Pop(DataType& x)
 }
 
 template<class DataType>
-bool SeqStack<DataType>::getTop(DataType* x)
+bool SeqStack<DataType>::getTop(DataType& x)
 {
 	if (this->IsEmpty()) {
 		return false;
 	}
 	else {
-		*x = this->elements[this->top];
+		x = this->elements[this->top];
 		return true;
 	}
 

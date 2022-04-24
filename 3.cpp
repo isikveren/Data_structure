@@ -1,16 +1,20 @@
 #include "SeqStack.h"
 
 int main() {
-	SeqStack<int> s(10);
-	s.Push(1);
-	s.Push(2);
+	SeqStack<int>* s = new SeqStack<int>(10);
+	int i = 0;
+	while (!s->IsFull()) {
+		s->Push(++i);
+	}
+	
 
 	int x = 0;
+	s->Pop(x);
+	cout << "出栈结果存放在x中，x = "<<x << endl;
+	s->getTop(x);
+	cout << "获取栈顶元素：" << x << endl;
 
-	s.Pop(x);
-	cout << x << endl;
-
-	//delete s;
+	delete s;
 	//system("pause");
 	return 0;
 }
