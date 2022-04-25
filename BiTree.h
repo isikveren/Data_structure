@@ -1,62 +1,63 @@
-# ifndef BiTree_H
+ï»¿# ifndef BiTree
 # define BiTree_H   
 
 # include<iostream>
 using namespace std;
 #include <cstdlib>	
 
-// ¶ş²æÊ÷½áµãÀàÄ£°å
+// äºŒå‰æ ‘ç»“ç‚¹ç±»æ¨¡æ¿
 struct BiNode
 {
-    char data;		// Êı¾İ³ÉÔ±:
-    BiNode* lchild, * rchild;	// ×ó\ÓÒº¢×ÓÖ¸Õë;
+    char data;		// æ•°æ®æˆå‘˜:
+    BiNode* lchild, * rchild;	// å·¦\å³å­©å­æŒ‡é’ˆ;
 };
-
 
 class BiTree
 {
 public:
-    BiTree() { root = Creat(root); }		// ¹¹Ôìº¯Êı	
+    BiTree() { root = Creat(this->root); }		// æ„é€ å‡½æ•°	
 
 
-    ~BiTree() { Release(root); }
+    ~BiTree() { Release(this->root); }
 
-    void PreOrderh() { PreOrder(root); }        //Ç°Ğò±éÀú
-    void InOrderh() { InOrder(root); }            //ÖĞĞò±éÀú
-    void PostOrderh() { PostOrder(root); }        //ºóĞò±éÀú
+    void PreOrderh() { PreOrder(this->root); }        //å‰åºéå†
+    void InOrderh() { InOrder(this->root); }            //ä¸­åºéå†
+    void PostOrderh() { PostOrder(this->root); }        //ååºéå†
+    void LevelOrderh() { LevelOrder(this->root); };
 private:
-    BiNode* root;                              //Ö¸Ïò¸ù½ÚµãµÄÍ·Ö¸Õë
-    BiNode* Creat(BiNode* bt);       //¹¹Ôìº¯Êıµ÷ÓÃ
-    void Release(BiNode* bt);       //Îö¹¹º¯Êıµ÷ÓÃ
-    void PreOrder(BiNode* bt);        //Ç°Ğò±éÀúµ÷ÓÃ
-    void InOrder(BiNode* bt);            //ÖĞĞò±éÀúµ÷ÓÃ
-    void PostOrder(BiNode* bt);       //ºóĞò±éÀúµ÷ÓÃ
+    BiNode* root;                              //æŒ‡å‘æ ¹èŠ‚ç‚¹çš„å¤´æŒ‡é’ˆ
+    BiNode* Creat(BiNode* bt);       //æ„é€ å‡½æ•°è°ƒç”¨
+    void Release(BiNode* bt);       //ææ„å‡½æ•°è°ƒç”¨
+    void PreOrder(BiNode* bt);        //å‰åºéå†è°ƒç”¨
+    void InOrder(BiNode* bt);            //ä¸­åºéå†è°ƒç”¨:Creat(BiNode* bt)
+    void PostOrder(BiNode* bt);         //ååºéå†
+
+    void LevelOrder(BiNode* BT);
+    void PreOrderPrintLeaves(BiNode* BT);  //è®¿é—®å¶å­ç»“ç‚¹
+    int PostOrderGetHeight(BiNode* BT); //ååºè·å–äºŒå‰æ ‘çš„æ·±åº¦
 };
-
-
 
 BiNode* BiTree::Creat(BiNode* bt)
 {
     char ch;
-    cout << "ÇëÊäÈë½áµãÊı¾İ" << endl;
+    cout << "è¯·è¾“å…¥ç»“ç‚¹æ•°æ®" << endl;
     cin >> ch;
     if (ch == '#') return NULL;
     else {
-        bt = new BiNode;                     //Éú³ÉÒ»¸ö½áµã
+        bt = new BiNode;                     //ç”Ÿæˆä¸€ä¸ªç»“ç‚¹
         bt->data = ch;  //
-        bt->lchild = Creat(bt->lchild);  //µİ¹é½¨Á¢×ó×ÓÊ÷
-        bt->rchild = Creat(bt->rchild); //µİ¹é½¨Á¢ÓÒ×ÓÊ÷
+        bt->lchild = Creat(bt->lchild);  //é€’å½’å»ºç«‹å·¦å­æ ‘
+        bt->rchild = Creat(bt->rchild); //é€’å½’å»ºç«‹å³å­æ ‘
 
     }
     return bt;
 }
 
-
 void BiTree::Release(BiNode* bt)
 {
     if (bt != NULL) {
-        Release(bt->lchild);   //ÊÍ·Å×ó×ÓÊ÷
-        Release(bt->rchild);  //ÊÍ·ÅÓÒ×ÓÊ÷
+        Release(bt->lchild);   //é‡Šæ”¾å·¦å­æ ‘
+        Release(bt->rchild);  //é‡Šæ”¾å³å­æ ‘
         delete bt;
     }
 }
@@ -64,11 +65,11 @@ void BiTree::Release(BiNode* bt)
 
 void BiTree::PreOrder(BiNode* bt)
 {
-    if (bt == NULL) return;   //µİ¹éµ÷ÓÃ½áÊøÌõ¼ş
+    if (bt == NULL) return;   //é€’å½’è°ƒç”¨ç»“æŸæ¡ä»¶
     else {
-        cout << bt->data << " ";  //·ÃÎÊ¸ù½áµãµÄÊı¾İÓò
-        PreOrder(bt->lchild); //Ç°Ğò±éÀúbtµÄ×ó×ÓÊ÷
-        PreOrder(bt->rchild); //Ç°Ğò±éÀúbtµÄÓÒ×ÓÊ÷
+        cout << bt->data << " ";  //è®¿é—®æ ¹ç»“ç‚¹çš„æ•°æ®åŸŸ
+        PreOrder(bt->lchild); //å‰åºéå†btçš„å·¦å­æ ‘
+        PreOrder(bt->rchild); //å‰åºéå†btçš„å³å­æ ‘
     }
 }
 
@@ -76,11 +77,11 @@ void BiTree::PreOrder(BiNode* bt)
 
 void BiTree::InOrder(BiNode* bt)
 {
-    if (bt == NULL) return;   //µİ¹éµ÷ÓÃ½áÊøÌõ¼ş
+    if (bt == NULL) return;   //é€’å½’è°ƒç”¨ç»“æŸæ¡ä»¶
     else {
-        InOrder(bt->lchild); //ÖĞĞò±éÀúbtµÄ×ó×ÓÊ÷
-        cout << bt->data << " ";  //·ÃÎÊ¸ù½áµãµÄÊı¾İÓò
-        InOrder(bt->rchild); //ÖĞĞò±éÀúbtµÄÓÒ×ÓÊ÷
+        InOrder(bt->lchild); //ä¸­åºéå†btçš„å·¦å­æ ‘
+        cout << bt->data << " ";  //è®¿é—®æ ¹ç»“ç‚¹çš„æ•°æ®åŸŸ
+        InOrder(bt->rchild); //ä¸­åºéå†btçš„å³å­æ ‘
     }
 }
 
@@ -88,13 +89,17 @@ void BiTree::InOrder(BiNode* bt)
 
 void BiTree::PostOrder(BiNode* bt)
 {
-    if (bt == NULL) return;   //µİ¹éµ÷ÓÃ½áÊøÌõ¼ş
+    if (bt == NULL) return;   //é€’å½’è°ƒç”¨ç»“æŸæ¡ä»¶
     else {
-        PostOrder(bt->lchild); //Ç°Ğò±éÀúbtµÄ×ó×ÓÊ÷
-        PostOrder(bt->rchild); //Ç°Ğò±éÀúbtµÄÓÒ×ÓÊ÷
-        cout << bt->data << " "; //·ÃÎÊ¸ù½áµãµÄÊı¾İÓò
+        PostOrder(bt->lchild); //å‰åºéå†btçš„å·¦å­æ ‘
+        PostOrder(bt->rchild); //å‰åºéå†btçš„å³å­æ ‘
+        cout << bt->data << " "; //è®¿é—®æ ¹ç»“ç‚¹çš„æ•°æ®åŸŸ
     }
 }
 
+void BiTree::LevelOrder(BiNode* BT)
+{
+}
 
-# endif
+
+#endif
