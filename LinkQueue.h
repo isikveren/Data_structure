@@ -15,9 +15,10 @@ class LinkQueue
 public:
 	LinkQueue();
 	~LinkQueue();
-	void EnQueue(DataType x);
-	DataType DeQueue();
-	DataType GetQueue();
+	void EnQueue(DataType x);    //入队
+	DataType DeQueue();			//出队
+	DataType GetQueue();		//获取队头元素
+	bool Empty();				//判断队列是否为空
 
 private:
 	Node<DataType>* front, * rear;
@@ -44,33 +45,54 @@ inline LinkQueue<DataType>::~LinkQueue()
 }
 
 template<class DataType>
-inline void LinkQueue<DataType>::EnQueue(DataType x)
+void LinkQueue<DataType>::EnQueue(DataType x)
 {
+	Node<DataType>* s = NULL;
+	s = new Node<DataType>;
+	s->data = x;
+	s->next = NULL;
+	rear->next = s;
+	rear = s;
+	//std::cout << "将" << x << "入队" << std::endl;
 }
 
 template<class DataType>
 DataType LinkQueue<DataType>::DeQueue()
 {
-	struct Node* FrontCell;
-	DataType FrontElem;
-	if (this->front == NULL)
+	Node<DataType>* p = NULL;
+	DataType x;
+	if (this->front == this->rear)
 	{
-		std::cout << "队列空" << std::endl;
+		std::cerr << "队列空" << std::endl;
 		return 0;  //空
 	}
-	FrontCell = this->front;
-	if (this->front == this->rear)
-		this->front = this->rear = NULL;
-	else this->front = this->front->next;
-	FrontElem = FrontCell->data;
-	delete FrontCell;
-	return FrontElem;
+	p = this->front->next;
+	x = p->data;
+	front->next = p->next;
+	if (p->next == NULL) {
+		rear = front;
+	}
+	delete p;
+	return x;
 }
 
 template<class DataType>
-inline DataType LinkQueue<DataType>::GetQueue()
+DataType LinkQueue<DataType>::GetQueue()
 {
-	return DataType();
+	if (front != rear) {
+		return front->next->data;
+	}
+}
+
+template<class DataType>
+inline bool LinkQueue<DataType>::Empty()
+{
+	if (front == rear) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
 }
 
 #endif

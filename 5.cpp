@@ -10,7 +10,10 @@ int main() {
 	cout << "后序遍历：" << endl;
 	t->PostOrderh();
 
+	cout << "层次遍历：" << endl;
+	t->LevelOrderh();
 
-	
+	t->GetTreeHeight();
+	t->GetTreeLeavesNum();
 	return 0;
 }
