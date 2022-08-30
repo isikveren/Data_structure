@@ -3,27 +3,28 @@ using namespace std;
 #define Max 50
 struct SqList
 {
-    int a[Max] = {};
-    int length = 0;
+    int a[Max] = {3,1,2};
+    int length = 3;
 };
-int listdelete(SqList &s, int &ele)
+int listdelete(SqList *s, int &ele)
 {
-    if (s.length == 0)
+    if (s->length == 0)
     {
         return false;
     }
-    int min = s.a[0];
+    int min = s->a[0];
     int flag = 0;
-    for (int i = 1; i < s.length; i++)
+    for (int i = 1; i < s->length; i++)
     {
-        if (s.a[i] < min)
+        if (s->a[i] < min)
         {
-            min = s.a[i];
+            min = s->a[i];
             flag = i;
         }
     }
-    s.a[flag] = s.a[s.length - 1];
-    return s.a[flag];
+    ele = s->a[flag];
+    s->a[flag] = s->a[s->length - 1];
+    return s->a[flag];
 }
 void printsql(SqList &s)
 {
@@ -39,7 +40,7 @@ int main()
     SqList s;
     int x;
     printsql(s);
-    if (listdelete(s, x))
+    if (listdelete(&s, x))
     {
         cout << "最小元素K = " << x << endl;
     }

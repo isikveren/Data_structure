@@ -1,0 +1,2 @@
+
+    printsql(s);
