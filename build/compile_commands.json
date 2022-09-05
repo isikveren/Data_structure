@@ -1,0 +1,7 @@
+[
+{
+  "directory": "D:/OneDrive/code/Data_structure/build",
+  "command": "E:/MinGW/MinGW/bin/g++.exe   -g -o CMakeFiles/thread_example.dir/thread_example.cpp.obj -c D:/OneDrive/code/Data_structure/thread/thread_example.cpp",
+  "file": "D:/OneDrive/code/Data_structure/thread/thread_example.cpp"
+}
+]
