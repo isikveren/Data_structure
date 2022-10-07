@@ -1,0 +1,23 @@
+semaphore mutex;
+semaphore empty;
+semaphore full;
+
+productor(){ 
+    while(1){
+        P(empty);
+        P(mutex);
+        add;
+        V(mutex);
+        V(full);
+    }
+}
+
+consumers(){
+    while(1){
+        P(full);
+        P(mutex);
+        get;
+        V(mutex);
+        V(empty);
+    }
+}
