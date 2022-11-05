@@ -2,22 +2,22 @@
 #ifndef LINKLIST
 #define LINKLIST
 
-#include<iostream>  //µ¥Á´±í
+#include <iostream> //å•é“¾è¡¨
 using namespace std;
 
-template<class DateType>
+template <class DateType>
 struct Node
 {
-	Node<DateType>* next;
+	Node<DateType> *next;
 	DateType data;
 };
 
-template<class DateType>
+template <class DateType>
 class LinkList
 {
 public:
 	LinkList();
-	LinkList(DateType* a, int n);
+	LinkList(DateType *a, int n);
 	~LinkList();
 	void ShowList();
 	void Delete(int i);
@@ -25,24 +25,25 @@ public:
 	bool SearchNode(int i);
 
 private:
-	Node<DateType>* first;
+	Node<DateType> *first;
 	int length;
 };
 
-template<class DateType>
+template <class DateType>
 LinkList<DateType>::LinkList()
 {
 	first = new Node<DateType>;
 	first->next = NULL;
 }
 
-template<class DateType>
-LinkList<DateType>::LinkList(DateType* a, int n) //Î²²å·¨
+template <class DateType>
+LinkList<DateType>::LinkList(DateType *a, int n) //å°¾æ’æ³•
 {
 	first = new Node<DateType>;
-	Node<DateType>* r, * s;
+	Node<DateType> *r, *s;
 	r = first;
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++)
+	{
 		s = new Node<DateType>;
 		s->data = a[i];
 		r->next = s;
@@ -52,79 +53,86 @@ LinkList<DateType>::LinkList(DateType* a, int n) //Î²²å·¨
 	length = n;
 }
 
-
-template<class DateType>
+template <class DateType>
 LinkList<DateType>::~LinkList()
 {
-	Node<DateType>* q = NULL;
-	while (first) {
+	Node<DateType> *q = NULL;
+	while (first)
+	{
 		q = first;
 		first = first->next;
 		delete q;
 	}
 }
 
-template<class DateType>
-void LinkList<DateType>::ShowList()  //Êä³öµ¥Á´±í
+template <class DateType>
+void LinkList<DateType>::ShowList() //è¾“å‡ºå•é“¾è¡¨
 {
-	cout << "Êä³öµ¥Á´±í" << endl;
-	Node<DateType>* p = first->next;
-	while (p) {
+	cout << "è¾“å‡ºå•é“¾è¡¨" << endl;
+	Node<DateType> *p = first->next;
+	while (p)
+	{
 		cout << p->data << "->";
 		p = p->next;
 	}
 	cout << "NULL" << endl;
 }
 
-template<class DateType>
+template <class DateType>
 
-void LinkList<DateType>::Delete(int i)  //É¾³ıµÚi¸ö½áµã
+void LinkList<DateType>::Delete(int i) //åˆ é™¤ç¬¬iä¸ªç»“ç‚¹
 {
-	
-	Node<DateType>* p = first, * q = NULL;
+
+	Node<DateType> *p = first, *q = NULL;
 	int count = 0;
-	while (p && count < i - 1) {
+	while (p && count < i - 1)
+	{
 		p = p->next;
 		count++;
 	}
-	if (p != NULL || p->next != NULL) {
+	if (p != NULL || p->next != NULL)
+	{
 		q = p->next;
 		p->next = q->next;
 		delete q;
 		length--;
-		cout << "É¾³ıµÚ" << i << "¸ö½áµã" << endl;
+		cout << "åˆ é™¤ç¬¬" << i << "ä¸ªç»“ç‚¹" << endl;
 	}
 }
 
-template<class DateType>
-bool LinkList<DateType>::InsertNode(int i, DateType x) //ÔÚµÚi¸ö½áµãºó²åÈë½áµã
+template <class DateType>
+bool LinkList<DateType>::InsertNode(int i, DateType x) //åœ¨ç¬¬ iä¸ªç»“ç‚¹åæ’å…¥ç»“ç‚¹
 {
-	if (i > length)	return 0;
-	Node<DateType>* p = first->next, * q = new Node<DateType>;
+	if (i > length)
+		return 0;
+	Node<DateType> *p = first->next, *q = new Node<DateType>;
 	q->data = x;
 	int count = 1;
-	while (p && count < i) {
+	while (p && count < i)
+	{
 		p = p->next;
 		count++;
 	}
 	q->next = p->next;
 	p->next = q;
 	length++;
-	cout << "ÔÚµÚ" << i << "¸ö½áµãºó²åÈëÖµÎª" << x << "µÄ½áµã" << endl;
+	cout << "åœ¨ç¬¬" << i << "ä¸ªç»“ç‚¹åæ’å…¥å€¼ä¸º" << x << "çš„ç»“ç‚¹" << endl;
 	return 1;
 }
 
-template<class DateType>
-bool LinkList<DateType>::SearchNode(int i)   //²éÕÒµÚi¸ö½áµã
+template <class DateType>
+bool LinkList<DateType>::SearchNode(int i) //æŸ¥æ‰¾ç¬¬iä¸ªç»“ç‚¹
 {
-	if (i > length)	return 0;
-	Node<DateType>* p = first->next;
+	if (i > length)
+		return 0;
+	Node<DateType> *p = first->next;
 	int count = 1;
-	while (p && count < i) {
+	while (p && count < i)
+	{
 		p = p->next;
 		count++;
 	}
-	cout << "²éÕÒ½áµã:µÚ" << i << "¸ö½áµãµÄÖµÎª" << p->data << endl;
+	cout << "æŸ¥æ‰¾ç»“ç‚¹:ç¬¬" << i << "ä¸ªç»“ç‚¹çš„å€¼ä¸º" << p->data << endl;
 	return 1;
 }
 #endif
